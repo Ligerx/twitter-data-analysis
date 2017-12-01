@@ -2,6 +2,10 @@ import re
 import pandas as pd
 from textblob import TextBlob
 
+import numpy as np
+import matplotlib.mlab as mlab
+import matplotlib.pyplot as plt
+
 
 # read & parse data
 # file1 = "Twitter_Data_One.xlsx"
@@ -105,6 +109,22 @@ print('pepsi_sentiments')
 pepsi_sentiments = get_tweet_sentiments(brands[2])
 
 
+
+# histogram
+def extract_polarities(sentiments):
+  return list(map(lambda sentiment: sentiment.polarity, sentiments))
+
+def plot_sentiment_histogram(brand_name, sentiments):
+  plt.hist(extract_polarities(sentiments), 60)
+  plt.xlabel('Polarity')
+  plt.ylabel('Number of Tweets')
+  plt.title(brand_name + ' Sentiment Analysis')
+  plt.xlim(-1, 1)
+  plt.grid(True)
+  plt.show()
+
+plot_sentiment_histogram('Coke', coke_sentiments)
+plot_sentiment_histogram('Pepsi', pepsi_sentiments)
 
 
 
