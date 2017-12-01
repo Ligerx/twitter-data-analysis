@@ -5,6 +5,7 @@ from textblob import TextBlob
 import numpy as np
 import matplotlib.mlab as mlab
 import matplotlib.pyplot as plt
+from scipy import stats
 
 
 # read & parse data
@@ -12,6 +13,7 @@ import matplotlib.pyplot as plt
 # file2 = "Twitter_Data_Two.xlsx"
 # df1 = pd.read_excel(file1)
 # df2 = pd.read_excel(file2)
+# tweets = df1.append(df2)
 
 testfile = "Twitter_Data_Test.xlsx"
 df = pd.read_excel(testfile)
@@ -110,11 +112,25 @@ pepsi_sentiments = get_tweet_sentiments(brands[2])
 
 
 
-# histogram
+# histogram of sentiment polarity
 def extract_polarities(sentiments):
   return list(map(lambda sentiment: sentiment.polarity, sentiments))
 
+def print_stats(brand_name, sentiments):
+  print()
+  print('Printing stats for', brand_name, '...')
+
+  polarities = extract_polarities(sentiments)
+  numpy_array = np.array(polarities)
+
+  print('Mean - ', np.mean(numpy_array))
+  print('Median - ', np.median(numpy_array))
+  print('Mode - ', stats.mode(numpy_array))
+
 def plot_sentiment_histogram(brand_name, sentiments):
+  print()
+  print('Printing histogram for', brand_name, '...')
+
   plt.hist(extract_polarities(sentiments), 60)
   plt.xlabel('Polarity')
   plt.ylabel('Number of Tweets')
@@ -123,8 +139,14 @@ def plot_sentiment_histogram(brand_name, sentiments):
   plt.grid(True)
   plt.show()
 
+
+print_stats('Coke', coke_sentiments)
+print_stats('Pepsi', pepsi_sentiments)
+
 plot_sentiment_histogram('Coke', coke_sentiments)
 plot_sentiment_histogram('Pepsi', pepsi_sentiments)
+
+
 
 
 
