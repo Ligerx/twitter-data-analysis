@@ -15,52 +15,12 @@ df = pd.read_excel(testfile)
 tweets = df["Sound Bite Text"]
 
 
-
-
-# sentiment analysis
-# http://www.geeksforgeeks.org/twitter-sentiment-analysis-using-python/
 def clean_tweet(tweet):
-    '''
-    Utility function to clean tweet text by removing links, special characters
-    using simple regex statements.
-    '''
-    return ' '.join(re.sub("(@[A-Za-z0-9]+)|([^0-9A-Za-z \t])|(\w+:\/\/\S+)", " ", tweet).split())
-
-
-
-
-# def get_tweet_sentiment(tweet):
-#     '''
-#     Utility function to classify sentiment of passed tweet
-#     using textblob's sentiment method
-#     '''
-
-#     # tweet
-
-
-#     # create TextBlob object of passed tweet text
-#     analysis = TextBlob(clean_tweet(tweet))
-#     # set sentiment
-#     if analysis.sentiment.polarity > 0:
-#         return 'positive'
-#     elif analysis.sentiment.polarity == 0:
-#         return 'neutral'
-#     else:
-#         return 'negative'
-
-
-# negative = 0
-# positive = 0
-# neutral = 0
-# for tweet in tweets:
-# 	sent = get_tweet_sentiment(clean_tweet(tweet))
-# 	if sent == 'positive':
-# 		positive += 1
-# 	elif sent == 'negative':
-# 		negative += 1
-# 	else:
-# 		neutral += 1
-
+  '''
+  Utility function to clean tweet text by removing links, special characters
+  using simple regex statements.
+  '''
+  return ' '.join(re.sub("(@[A-Za-z0-9]+)|([^0-9A-Za-z \t])|(\w+:\/\/\S+)", " ", tweet).split())
 
 
 # Input: All tweets
@@ -143,3 +103,15 @@ coke_sentiments = get_tweet_sentiments(brands[1])
 
 print('pepsi_sentiments')
 pepsi_sentiments = get_tweet_sentiments(brands[2])
+
+
+
+
+
+# Note: I'm reading that removing objective tweets can improve accuracy of predictions.
+#       Not sure what the threshold for that is, so haven't done that yet.
+
+# Note: Choosing not to analyze any tweets that talk about both coke and pepsi.
+#       The algorithms probably can't understand both together, which may hurt accuracy.
+
+# Inspired by - http://www.geeksforgeeks.org/twitter-sentiment-analysis-using-python/
