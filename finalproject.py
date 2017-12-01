@@ -78,10 +78,10 @@ def segment_brands(tweets):
     # lower case temp variable for the sake of string comparison
     lower_tweet = cleaned_tweet.lower()
 
-    if ('coke' in lower_tweet or 'coca cola' in lower_tweet) and 'pepsi' in lower_tweet:
+    if ('coke' in lower_tweet or 'coca cola' in lower_tweet or 'cocacola' in lower_tweet) and 'pepsi' in lower_tweet:
       # tweet contains both coke and pepsi text
       both.append(cleaned_tweet)
-    elif 'coke' in lower_tweet or 'coca cola' in lower_tweet:
+    elif 'coke' in lower_tweet or 'coca cola' in lower_tweet or 'cocacola' in lower_tweet:
       # tweet is only coke
       coke.append(cleaned_tweet)
     elif 'pepsi' in lower_tweet:
@@ -121,9 +121,25 @@ def get_tweet_sentiments(tweets):
   print("positive - ", positive)
   print("neutral - ", neutral)
   print("negative - ", negative)
+  print("total tweets analyzed -", positive + neutral + negative)
   print()
 
   return sentiments
 
 
+
+
 brands = segment_brands(tweets)
+
+print("--------  Brand Segments  --------")
+print("both", len(brands[0]))
+print("coke", len(brands[1]))
+print("pepsi", len(brands[2]))
+print("leftover", len(brands[3]))
+print()
+
+print('coke_sentiments')
+coke_sentiments = get_tweet_sentiments(brands[1])
+
+print('pepsi_sentiments')
+pepsi_sentiments = get_tweet_sentiments(brands[2])
