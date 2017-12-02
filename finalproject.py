@@ -16,14 +16,12 @@ file2 = "Twitter_Data_Two.xlsx"
 print('READING IN THE DATA...')
 df1 = pd.read_excel(file1)
 df2 = pd.read_excel(file2)
-# tweets = df1.append(df2)
 tweets1 = df1["Sound Bite Text"]
 tweets2 = df2["Sound Bite Text"]
 tweets = pd.concat([tweets1, tweets2])
 
 # testfile = "Twitter_Data_Test.xlsx"
 # df = pd.read_excel(testfile)
-
 # tweets = df["Sound Bite Text"]
 
 
@@ -50,8 +48,8 @@ def segment_brands(tweets):
 
   print('SEGMENTING BRANDS...')
 
-  # for tweet in tqdm(tweets):
-  for tweet in tweets:
+  # for tweet in tweets:
+  for tweet in tqdm(tweets):
     cleaned_tweet = clean_tweet(tweet)
 
     # lower case temp variable for the sake of string comparison
@@ -86,8 +84,8 @@ def get_tweet_sentiments(tweets):
 
   print('ANALYZING SENTIMENT')
 
-  # for tweet in tqdm(tweets):
-  for tweet in tweets:
+  # for tweet in tweets:
+  for tweet in tqdm(tweets):
     analysis = TextBlob(tweet)
     sentiments.append(analysis.sentiment)
 
