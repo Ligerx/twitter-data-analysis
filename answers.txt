@@ -1,9 +1,0 @@
-Description: In this project, you will apply many of the concepts you have learnt in this course to analyze two competing popular soda brands, Coca-Cola and Pepsi. You will need to perform a sentiment analysis of the two brands. You also need to parse sentences into parts of speech and extract the Top 100 nouns, verbs, adjectives (of all types) and hashtags by occurrence. In addition to the specific outputs, answer and summarize with the data, the following questions:
-
-	1. Which brand has more positive sentiment (and by how much: quantify)?
-
-	2. What attributes of the product are the reasons why the perception is more positive? (Hint: use specific Parts of Speech)
-	
-	3. What attributes of each product are the top contributors for their negative perception? (Hint: use specific Parts of Speech)
-
-Reporting any additional interesting patterns/finds in the data is highly recommended.
