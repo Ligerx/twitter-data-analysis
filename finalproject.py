@@ -7,20 +7,26 @@ import matplotlib.mlab as mlab
 import matplotlib.pyplot as plt
 from scipy import stats
 
-from tqdm import tqdm
+from tqdm import tqdm, tqdm_pandas
 
 
 # read & parse data
 file1 = "Twitter_Data_One.xlsx"
 file2 = "Twitter_Data_Two.xlsx"
+print('READING IN THE DATA...')
 df1 = pd.read_excel(file1)
 df2 = pd.read_excel(file2)
-tweets = df1.append(df2)
+# tweets = df1.append(df2)
+tweets = pd.concat([df1, df2])
 
 # testfile = "Twitter_Data_Test.xlsx"
 # df = pd.read_excel(testfile)
 
 # tweets = df["Sound Bite Text"]
+
+
+print('DONE READING DATA...')
+print('# of rows - ', len(tweets))
 
 
 def clean_tweet(tweet):
@@ -42,7 +48,8 @@ def segment_brands(tweets):
 
   print('SEGMENTING BRANDS...')
 
-  for tweet in tqdm(tweets):
+  # for tweet in tqdm(tweets):
+  for tweet in tweets:
     cleaned_tweet = clean_tweet(tweet)
 
     # lower case temp variable for the sake of string comparison
@@ -77,7 +84,8 @@ def get_tweet_sentiments(tweets):
 
   print('ANALYZING SENTIMENT')
 
-  for tweet in tqdm(tweets):
+  # for tweet in tqdm(tweets):
+  for tweet in tweets:
     analysis = TextBlob(tweet)
     sentiments.append(analysis.sentiment)
 
