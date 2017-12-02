@@ -15,9 +15,9 @@ tweets2 = df2["Sound Bite Text"]
 tweets = pd.concat([tweets1, tweets2])
 print("DONE: reading")
 
+# testing with a smaller file
 # testfile = "Twitter_Data_Test.xlsx"
 # df = pd.read_excel(testfile)
-
 # tweets = df["Sound Bite Text"]
 
 def segment_brands(tweets):
@@ -57,7 +57,6 @@ adjective_t = ["JJ", "JJR", "JJS"]
 
 stop_words = get_stop_words('english')
 
-# TODO: hashtags
 def analyze_tweets(tweets):
 	giant_list = []
 	hashtags = []

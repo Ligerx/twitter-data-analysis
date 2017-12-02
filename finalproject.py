@@ -16,16 +16,14 @@ file2 = "Twitter_Data_Two.xlsx"
 print('READING IN THE DATA...')
 df1 = pd.read_excel(file1)
 df2 = pd.read_excel(file2)
-# tweets = df1.append(df2)
 tweets1 = df1["Sound Bite Text"]
 tweets2 = df2["Sound Bite Text"]
 tweets = pd.concat([tweets1, tweets2])
 
+# testing with a smaller file
 # testfile = "Twitter_Data_Test.xlsx"
 # df = pd.read_excel(testfile)
-
 # tweets = df["Sound Bite Text"]
-
 
 print('DONE READING DATA...')
 print('# of rows - ', len(tweets))
