@@ -1,0 +1,44 @@
+python3 finalproject.py
+READING IN THE DATA...
+DONE READING DATA...
+# of rows -  160900
+SEGMENTING BRANDS...
+100%|██████████████████████████████████████████████████████████████████████████████████████████████████████████████| 160900/160900 [00:13<00:00, 12012.38it/s]
+--------  Brand Segments  --------
+both 11348
+coke 89260
+pepsi 56005
+leftover 4287
+
+coke_sentiments
+ANALYZING SENTIMENT
+100%|█████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 89260/89260 [00:59<00:00, 1493.99it/s]
+--------  get_tweet_sentiments  --------
+positive -  58954
+neutral -  16932
+negative -  13374
+total tweets analyzed - 89260
+
+pepsi_sentiments
+ANALYZING SENTIMENT
+100%|█████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 56005/56005 [00:29<00:00, 1903.61it/s]
+--------  get_tweet_sentiments  --------
+positive -  30464
+neutral -  10885
+negative -  14656
+total tweets analyzed - 56005
+
+
+Printing stats for Coke ...
+Mean -  0.132764731159
+Median -  0.106349206349
+Mode -  ModeResult(mode=array([ 0.]), count=array([16932]))
+
+Printing stats for Pepsi ...
+Mean -  0.0892925421533
+Median -  0.0266666666667
+Mode -  ModeResult(mode=array([ 0.]), count=array([10885]))
+
+Printing histogram for Coke ...
+
+Printing histogram for Pepsi ...
