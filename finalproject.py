@@ -33,6 +33,11 @@ def clean_tweet(tweet):
   Utility function to clean tweet text by removing links, special characters
   using simple regex statements.
   '''
+  # Comments to explain this exact regex pattern
+  # ((A) | (B) | (C)) - match either A or B or C. Parentheses captures the piece that was matched.
+  # A ->  @[A-Za-z0-9]+    Find @ and select the @ plus all letters/numbers after it. (Used to delete usernames)
+  # B ->  [^0-9A-Za-z \t]  Select any character that is not a number, letter, space, or tab. (currently deletes #hashtags)
+  # C ->  \w+:\/\/\S+      Finds characters, followed by ://, followed by characters. (removes URLs)
   return ' '.join(re.sub("(@[A-Za-z0-9]+)|([^0-9A-Za-z \t])|(\w+:\/\/\S+)", " ", tweet).split())
 
 
@@ -181,7 +186,7 @@ def analyze_tweets(tweets):
   verbs = list(map(lambda x: x[0], verb_filtered))
   adjectives = list(map(lambda x: x[0], adject_filtered))
 
-  top_nouns = Counter(nouns).most_common(100)  
+  top_nouns = Counter(nouns).most_common(100)
   top_verbs = Counter(verbs).most_common(100)
   top_adjectives = Counter(adjectives).most_common(100)
 
