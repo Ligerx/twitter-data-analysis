@@ -53,7 +53,6 @@ def segment_brands(tweets):
 
   print('SEGMENTING BRANDS...')
 
-  # for tweet in tweets:
   for tweet in tqdm(tweets):
     cleaned_tweet = clean_tweet(tweet)
 
@@ -89,7 +88,6 @@ def get_tweet_sentiments(tweets):
 
   print('ANALYZING SENTIMENT')
 
-  # for tweet in tweets:
   for tweet in tqdm(tweets):
     analysis = TextBlob(tweet)
     sentiments.append(analysis.sentiment)

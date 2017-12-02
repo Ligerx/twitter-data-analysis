@@ -52,8 +52,7 @@ def segment_brands(tweets):
 
   print('SEGMENTING BRANDS...')
 
-  # for tweet in tqdm(tweets):
-  for tweet in tweets:
+  for tweet in tqdm(tweets):
     cleaned_tweet = clean_tweet(tweet)
 
     # lower case temp variable for the sake of string comparison
@@ -89,8 +88,7 @@ def get_tweet_sentiments(tweets, positive_list, negative_list):
 
   print('ANALYZING SENTIMENT')
 
-  # for tweet in tqdm(tweets):
-  for tweet in tweets:
+  for tweet in tqdm(tweets):
     analysis = TextBlob(tweet)
     sentiments.append(analysis.sentiment)
 
@@ -171,7 +169,7 @@ def analyze_tweets(tweets):
   giant_list = []
   hashtags = []
   counter = 0
-  for tweet in tweets:
+  for tweet in tqdm(tweets):
     analysis = TextBlob(tweet)
     giant_list += analysis.tags
     hashtags += re.findall(r"#(\w+)", tweet)
