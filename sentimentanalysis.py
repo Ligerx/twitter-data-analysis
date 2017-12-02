@@ -48,8 +48,8 @@ def segment_brands(tweets):
 
   print('SEGMENTING BRANDS...')
 
-  # for tweet in tqdm(tweets):
-  for tweet in tweets:
+  # for tweet in tweets:
+  for tweet in tqdm(tweets):
     cleaned_tweet = clean_tweet(tweet)
 
     # lower case temp variable for the sake of string comparison
@@ -84,8 +84,8 @@ def get_tweet_sentiments(tweets):
 
   print('ANALYZING SENTIMENT')
 
-  # for tweet in tqdm(tweets):
-  for tweet in tweets:
+  # for tweet in tweets:
+  for tweet in tqdm(tweets):
     analysis = TextBlob(tweet)
     sentiments.append(analysis.sentiment)
 
