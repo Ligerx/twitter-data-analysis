@@ -20,10 +20,10 @@ tweets1 = df1["Sound Bite Text"]
 tweets2 = df2["Sound Bite Text"]
 tweets = pd.concat([tweets1, tweets2])
 
+# testing with a smaller file
 # testfile = "Twitter_Data_Test.xlsx"
 # df = pd.read_excel(testfile)
 # tweets = df["Sound Bite Text"]
-
 
 print('DONE READING DATA...')
 print('# of rows - ', len(tweets))
