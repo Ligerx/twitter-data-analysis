@@ -1,6 +1,7 @@
 import re
 import pandas as pd
 from textblob import TextBlob
+from collections import Counter
 
 # read & parse data
 # file1 = "Twitter_Data_One.xlsx"
@@ -43,4 +44,8 @@ adject_filtered = list(filter(lambda x: is_type(x, adjective_t), giant_list))
 nouns = list(map(lambda x: x[0], noun_filtered))
 verbs = list(map(lambda x: x[0], verb_filtered))
 adjectives = list(map(lambda x: x[0], adject_filtered))
+
+top_nouns = Counter(nouns).most_common(100)  
+top_verbs = Counter(verbs).most_common(100)
+top_adjectives = Counter(adjectives).most_common(100)
 
