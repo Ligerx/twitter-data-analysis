@@ -93,8 +93,6 @@ def get_tweet_sentiments(tweets):
   return sentiments
 
 
-
-
 brands = segment_brands(tweets)
 
 print("--------  Brand Segments  --------")
@@ -145,8 +143,6 @@ print_stats('Pepsi', pepsi_sentiments)
 
 plot_sentiment_histogram('Coke', coke_sentiments)
 plot_sentiment_histogram('Pepsi', pepsi_sentiments)
-
-
 
 
 
