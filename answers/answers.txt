@@ -1,0 +1,32 @@
+Description: In this project, you will apply many of the concepts you have learnt in this course to analyze two competing popular soda brands, Coca-Cola and Pepsi. You will need to perform a sentiment analysis of the two brands. You also need to parse sentences into parts of speech and extract the Top 100 nouns, verbs, adjectives (of all types) and hashtags by occurrence. In addition to the specific outputs, answer and summarize with the data, the following questions:
+
+1. Which brand has more positive sentiment (and by how much: quantify)?
+
+######## FROM sentimentanalysis-output.txt
+Printing stats for Coke ...
+Mean -  0.132764731159
+Median -  0.106349206349
+Mode -  ModeResult(mode=array([ 0.]), count=array([16932]))
+
+Printing stats for Pepsi ...
+Mean -  0.0892925421533
+Median -  0.0266666666667
+Mode -  ModeResult(mode=array([ 0.]), count=array([10885]))
+########
+
+Coke's mean sentiment is greater than Pepsi's by 0.0434721890057
+Coke's median sentiment is greater than Pepsi's by 0.0796825396823
+
+The median is most likely a better measure than mean because of the overwhelming amount of non-polar sentiments from the sentiment analysis algorithm. Regardless, Coke definitely has a much better positive perception than Pepsi. (by 4%)
+
+
+
+2. What attributes of the product are the reasons why the perception is more positive? (Hint: use specific Parts of Speech)
+
+
+
+3. What attributes of each product are the top contributors for their negative perception? (Hint: use specific Parts of Speech)
+
+
+
+Reporting any additional interesting patterns/finds in the data is highly recommended.
