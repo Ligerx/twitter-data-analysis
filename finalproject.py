@@ -1,6 +1,8 @@
 import re
 import pandas as pd
 from textblob import TextBlob
+from collections import Counter
+from stop_words import get_stop_words
 
 import numpy as np
 import matplotlib.mlab as mlab
@@ -10,23 +12,35 @@ from scipy import stats
 from tqdm import tqdm, tqdm_pandas
 
 # read & parse data
-# file1 = "Twitter_Data_One.xlsx"
-# file2 = "Twitter_Data_Two.xlsx"
-# print('READING IN THE DATA...')
-# df1 = pd.read_excel(file1)
-# df2 = pd.read_excel(file2)
-# tweets1 = df1["Sound Bite Text"]
-# tweets2 = df2["Sound Bite Text"]
-# tweets = pd.concat([tweets1, tweets2])
+file1 = "Twitter_Data_One.xlsx"
+file2 = "Twitter_Data_Two.xlsx"
+print('READING IN THE DATA...')
+df1 = pd.read_excel(file1)
+df2 = pd.read_excel(file2)
+tweets1 = df1["Sound Bite Text"]
+tweets2 = df2["Sound Bite Text"]
+tweets = pd.concat([tweets1, tweets2])
 
 # testing with a smaller file
-testfile = "Twitter_Data_Test.xlsx"
-df = pd.read_excel(testfile)
-tweets = df["Sound Bite Text"]
+# testfile = "Twitter_Data_Test.xlsx"
+# df = pd.read_excel(testfile)
+# tweets = df["Sound Bite Text"]
 
 print('DONE READING DATA...')
 print('# of rows - ', len(tweets))
 
+
+def clean_tweet_hashtags(tweet):
+  '''
+  Utility function to clean tweet text by removing links, special characters
+  using simple regex statements.
+  '''
+  # Comments to explain this exact regex pattern
+  # ((A) | (B) | (C)) - match either A or B or C. Parentheses captures the piece that was matched.
+  # A ->  @[A-Za-z0-9]+    Find @ and select the @ plus all letters/numbers after it. (Used to delete usernames)
+  # B ->  [^0-9A-Za-z \t]  Select any character that is not a number, letter, space, or tab. (currently deletes #hashtags)
+  # C ->  \w+:\/\/\S+      Finds characters, followed by ://, followed by characters. (removes URLs)
+  return ' '.join(re.sub("(@[A-Za-z0-9]+)|([^0-9A-Za-z \t#])|(\w+:\/\/\S+)", " ", tweet).split())
 
 def clean_tweet(tweet):
   '''
@@ -39,7 +53,6 @@ def clean_tweet(tweet):
   # B ->  [^0-9A-Za-z \t]  Select any character that is not a number, letter, space, or tab. (currently deletes #hashtags)
   # C ->  \w+:\/\/\S+      Finds characters, followed by ://, followed by characters. (removes URLs)
   return ' '.join(re.sub("(@[A-Za-z0-9]+)|([^0-9A-Za-z \t])|(\w+:\/\/\S+)", " ", tweet).split())
-
 
 # Input: All tweets
 # Returns: Tuple of 4 lists - (both, coke, pepsi, leftover)
@@ -60,16 +73,16 @@ def segment_brands(tweets):
 
     if ('coke' in lower_tweet or 'coca cola' in lower_tweet or 'cocacola' in lower_tweet) and 'pepsi' in lower_tweet:
       # tweet contains both coke and pepsi text
-      both.append(cleaned_tweet)
+      both.append(tweet)
     elif 'coke' in lower_tweet or 'coca cola' in lower_tweet or 'cocacola' in lower_tweet:
       # tweet is only coke
-      coke.append(cleaned_tweet)
+      coke.append(tweet)
     elif 'pepsi' in lower_tweet:
       # tweet is only pepsi
-      pepsi.append(cleaned_tweet)
+      pepsi.append(tweet)
     else:
       # tweet doesn't fit either category
-      leftover.append(cleaned_tweet)
+      leftover.append(tweet)
 
   return (both, coke, pepsi, leftover)
 
@@ -89,16 +102,16 @@ def get_tweet_sentiments(tweets, positive_list, negative_list):
   print('ANALYZING SENTIMENT')
 
   for tweet in tqdm(tweets):
-    analysis = TextBlob(tweet)
+    analysis = TextBlob(clean_tweet(tweet))
     sentiments.append(analysis.sentiment)
 
     # track sentiment results to print
     if analysis.sentiment.polarity > 0:
       positive += 1
-      positive_list += analysis.tags
+      positive_list.append(tweet)
     elif analysis.sentiment.polarity == 0:
       neutral += 1
-      negative_list += analysis.tags
+      negative_list.append(tweet)
     else:
       negative += 1
 
@@ -165,15 +178,24 @@ plot_sentiment_histogram('Coke', coke_sentiments)
 plot_sentiment_histogram('Pepsi', pepsi_sentiments)
 
 
+def is_type(word, typelist):
+  return word[1] in typelist
+
+noun_t = ["NN", "NNS", "NNP", "NNPS"]
+verb_t = ["VB", "VBD"," VBG", "VBN", "VBZ"]
+adjective_t = ["JJ", "JJR", "JJS"]
+
+stop_words = get_stop_words('english')
+stop_words.append("'s")
+
 def analyze_tweets(tweets):
   giant_list = []
   hashtags = []
   counter = 0
   for tweet in tqdm(tweets):
-    analysis = TextBlob(tweet)
+    analysis = TextBlob(clean_tweet(tweet))
     giant_list += analysis.tags
-    hashtags += re.findall(r"#(\w+)", tweet)
-    print(counter)
+    hashtags += re.findall(r"#(\w+)", clean_tweet_hashtags(tweet))
     counter += 1
 
   noun_filtered = list(filter(lambda x: is_type(x, noun_t) and len(x[0]) > 1 and x[0] not in stop_words, giant_list))
@@ -191,6 +213,32 @@ def analyze_tweets(tweets):
   top_hashtags = Counter(hashtags).most_common(100)
 
   return (top_nouns, top_verbs, top_adjectives, top_hashtags)
+
+
+coke_pos_analysis = analyze_tweets(coke_pos)
+coke_neg_analysis = analyze_tweets(coke_neg)
+pepsi_pos_analysis = analyze_tweets(pepsi_pos)
+pepsi_neg_analysis = analyze_tweets(pepsi_neg)
+
+def print_analysis(analysis):
+  print("Top 100 Nouns")
+  print(analysis[0])
+  print("Top 100 Verbs")
+  print(analysis[1])
+  print("Top 100 Adjectives")
+  print(analysis[2])
+  print("Top 100 Hashtags")
+  print(analysis[3])
+
+print("########################################\nCoke Positive")
+print_analysis(coke_pos_analysis)
+print("########################################\nCoke Negative")
+print_analysis(coke_neg_analysis)
+print("########################################\nPepsi Positive")
+print_analysis(pepsi_pos_analysis)
+print("########################################\nPepsi Negative")
+print_analysis(pepsi_neg_analysis)
+
 
 # Note: I'm reading that removing objective tweets can improve accuracy of predictions.
 #       Not sure what the threshold for that is, so haven't done that yet.
