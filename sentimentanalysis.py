@@ -12,19 +12,19 @@ from tqdm import tqdm, tqdm_pandas
 
 
 # read & parse data
-file1 = "Twitter_Data_One.xlsx"
-file2 = "Twitter_Data_Two.xlsx"
-print('READING IN THE DATA...')
-df1 = pd.read_excel(file1)
-df2 = pd.read_excel(file2)
-tweets1 = df1["Sound Bite Text"]
-tweets2 = df2["Sound Bite Text"]
-tweets = pd.concat([tweets1, tweets2])
+# file1 = "Twitter_Data_One.xlsx"
+# file2 = "Twitter_Data_Two.xlsx"
+# print('READING IN THE DATA...')
+# df1 = pd.read_excel(file1)
+# df2 = pd.read_excel(file2)
+# tweets1 = df1["Sound Bite Text"]
+# tweets2 = df2["Sound Bite Text"]
+# tweets = pd.concat([tweets1, tweets2])
 
 # testing with a smaller file
-# testfile = "Twitter_Data_Test.xlsx"
-# df = pd.read_excel(testfile)
-# tweets = df["Sound Bite Text"]
+testfile = "Twitter_Data_Test.xlsx"
+df = pd.read_excel(testfile)
+tweets = df["Sound Bite Text"]
 
 print('DONE READING DATA...')
 print('# of rows - ', len(tweets))
@@ -155,23 +155,20 @@ def plot_sentiment_histogram(brand_name, sentiments, remove_zeros=False):
   # best fit of data
   mu, std = norm.fit(polarities)
 
-  # Draw the histogram
-  # n, bins, patches = plt.hist(polarities, bins=60)
-  plt.hist(polarities, bins=60)
+  print("Mu - ", mu)
+  print("Std - ", std)
 
-  # # Draw a best fit line
-  # y = mlab.normpdf(bins, mu, sigma)
-  # plt.plot(bins, y, 'r--', linewidth = 2)
+  # Draw the histogram
+  plt.hist(polarities, bins=60, normed=True)
 
   # set the x range
   xmin, xmax = -1, 1
   plt.xlim(xmin, xmax)
 
   # Draw best fit line
-  x = np.linspace(xmin, xmax)
+  x = np.linspace(xmin, xmax, 100)
   p = norm.pdf(x, mu, std)
   plt.plot(x, p, 'k', linewidth=2)
-
 
   plt.xlabel('Polarity')
   plt.ylabel('Number of Tweets')
