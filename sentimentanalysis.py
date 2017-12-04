@@ -6,6 +6,7 @@ import numpy as np
 import matplotlib.mlab as mlab
 import matplotlib.pyplot as plt
 from scipy import stats
+from scipy.stats import norm
 
 from tqdm import tqdm, tqdm_pandas
 
@@ -142,11 +143,25 @@ def print_stats(brand_name, sentiments):
   print('Median - ', np.median(numpy_array))
   print('Mode - ', stats.mode(numpy_array))
 
-def plot_sentiment_histogram(brand_name, sentiments):
+def plot_sentiment_histogram(brand_name, sentiments, remove_zeros=False):
   print()
   print('Printing histogram for', brand_name, '...')
 
-  plt.hist(extract_polarities(sentiments), 60)
+  polarities = extract_polarities(sentiments)
+
+  if remove_zeros:
+    polarities = list(filter(lambda x: x != 0, polarities))
+
+  # best fit of data
+  (mu, sigma) = norm.fit(polarities)
+
+  # Draw the histogram
+  n, bins, patches = plt.hist(polarities, 60)
+
+  # Draw a best fit line
+  y = mlab.normpdf(bins, mu, sigma)
+  plt.plot(bins, y, 'r--', linewidth = 2)
+
   plt.xlabel('Polarity')
   plt.ylabel('Number of Tweets')
   plt.title(brand_name + ' Sentiment Analysis')
@@ -161,6 +176,9 @@ print_stats('Pepsi', pepsi_sentiments)
 plot_sentiment_histogram('Coke', coke_sentiments)
 plot_sentiment_histogram('Pepsi', pepsi_sentiments)
 
+
+plot_sentiment_histogram('Coke (w/o 0s)', coke_sentiments, True)
+plot_sentiment_histogram('Pepsi (w/o 0s)', pepsi_sentiments, True)
 
 
 # Note: I'm reading that removing objective tweets can improve accuracy of predictions.
