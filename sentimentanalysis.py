@@ -153,19 +153,29 @@ def plot_sentiment_histogram(brand_name, sentiments, remove_zeros=False):
     polarities = list(filter(lambda x: x != 0, polarities))
 
   # best fit of data
-  (mu, sigma) = norm.fit(polarities)
+  mu, std = norm.fit(polarities)
 
   # Draw the histogram
-  n, bins, patches = plt.hist(polarities, 60)
+  # n, bins, patches = plt.hist(polarities, bins=60)
+  plt.hist(polarities, bins=60)
 
-  # Draw a best fit line
-  y = mlab.normpdf(bins, mu, sigma)
-  plt.plot(bins, y, 'r--', linewidth = 2)
+  # # Draw a best fit line
+  # y = mlab.normpdf(bins, mu, sigma)
+  # plt.plot(bins, y, 'r--', linewidth = 2)
+
+  # set the x range
+  xmin, xmax = -1, 1
+  plt.xlim(xmin, xmax)
+
+  # Draw best fit line
+  x = np.linspace(xmin, xmax)
+  p = norm.pdf(x, mu, std)
+  plt.plot(x, p, 'k', linewidth=2)
+
 
   plt.xlabel('Polarity')
   plt.ylabel('Number of Tweets')
   plt.title(brand_name + ' Sentiment Analysis')
-  plt.xlim(-1, 1)
   plt.grid(True)
   plt.show()
 
