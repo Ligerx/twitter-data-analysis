@@ -166,6 +166,7 @@ def plot_sentiment_histogram(brand_name, sentiments, remove_zeros=False):
   plt.xlim(xmin, xmax)
 
   # Draw best fit line
+  # https://stackoverflow.com/questions/20011122/fitting-a-normal-distribution-to-1d-data
   x = np.linspace(xmin, xmax, 100)
   p = norm.pdf(x, mu, std)
   plt.plot(x, p, 'k', linewidth=2)
