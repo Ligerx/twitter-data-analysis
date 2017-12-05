@@ -5,20 +5,20 @@ from collections import Counter
 from stop_words import get_stop_words
 
 # read & parse data
-# file1 = "Twitter_Data_One.xlsx"
-# file2 = "Twitter_Data_Two.xlsx"
-# df1 = pd.read_excel(file1)
-# df2 = pd.read_excel(file2)
+file1 = "Twitter_Data_One.xlsx"
+file2 = "Twitter_Data_Two.xlsx"
+df1 = pd.read_excel(file1)
+df2 = pd.read_excel(file2)
 
-# tweets1 = df1["Sound Bite Text"]
-# tweets2 = df2["Sound Bite Text"]
-# tweets = pd.concat([tweets1, tweets2])
-# print("DONE: reading")
+tweets1 = df1["Sound Bite Text"]
+tweets2 = df2["Sound Bite Text"]
+tweets = pd.concat([tweets1, tweets2])
+print("DONE: reading")
 
 # testing with a smaller file
-testfile = "Twitter_Data_Test.xlsx"
-df = pd.read_excel(testfile)
-tweets = df["Sound Bite Text"]
+# testfile = "Twitter_Data_Test.xlsx"
+# df = pd.read_excel(testfile)
+# tweets = df["Sound Bite Text"]
 
 def segment_brands(tweets):
   both = []
