@@ -1,5 +1,8 @@
 Description: In this project, you will apply many of the concepts you have learnt in this course to analyze two competing popular soda brands, Coca-Cola and Pepsi. You will need to perform a sentiment analysis of the two brands. You also need to parse sentences into parts of speech and extract the Top 100 nouns, verbs, adjectives (of all types) and hashtags by occurrence. In addition to the specific outputs, answer and summarize with the data, the following questions:
 
+
+
+
 1. Which brand has more positive sentiment (and by how much: quantify)?
 
 ######## FROM sentimentanalysis-output.txt
@@ -21,12 +24,54 @@ The median is most likely a better measure than mean because of the overwhelming
 
 
 
+
+
 2. What attributes of the product are the reasons why the perception is more positive? (Hint: use specific Parts of Speech)
+
+Coke +
+------
+dieting, coke zero, weight loss, healthy
+fashion, nature
+photography
+recent campaigns such as #FootballWithCocaCola, #FIFAU17WC, #FIFATrophyExperience
+
+Pepsi +
+-------
+garden - they have a garden w/ an art collection, opening to the public temporarily
+apocalypse - someone released a DOOM fan game with pepsi in it
+Kendall Jenner - insensitive ad released earlier 2017
+#PepsiGladiators, BritneySpears, EnriqueIglesias, Pink, Beyonce - old commercial they did
+stuff about fetuses, flesh, aborted, etc.
+memes - usually related to the Kendall Jenner ad
+
+
+
 
 
 
 3. What attributes of each product are the top contributors for their negative perception? (Hint: use specific Parts of Speech)
 
+Coke -
+------
+Selena Quintanilla–Pérez. She was a famous singer who was murdered years ago. Someone posted an old photoshoot of her in a coke ad.
+indigenous - Coke put out an ad with giving indigenous people coke, which got backlash. This was in 2015.
+
+Pepsi -
+-------
+iKON - kpop group that did a pepsi ad, guess it wasn't popular
+Kendall Jenner
+crystalpepsi
+mxxm, shzzz
+pepsibattleofthebands
+meme
+Rolex - they did a pepsi watch, it looks dumb
+
+
+
 
 
 Reporting any additional interesting patterns/finds in the data is highly recommended.
+
+In general, Coke is a lot more boring. There's not too much going on with their brand on twitter. Pepsi on the other hand is dealing with a lot more PR issues which make for interesting research. Despite some PR issues being almost a year old, they're still one of Pepsi's most frequent words.
+
+That said, all the tweet data given to us was between Sept and Oct 2017. Many of the highest trending tweets were based on somewhat recent events or an old event with a resurgance of retweets. Our understanding is that positive and negative factors that stick out are very time dependent.
